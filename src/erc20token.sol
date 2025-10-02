@@ -18,7 +18,7 @@ contract MyErc20 is ERC20, Ownable{
     }
 
 }
-
+/*
 // 定义接口：回调方实现
 interface ITokenReceiver {
     function tokenReceived(address from, address to, uint256 amount, bytes calldata data) external returns (bool);
@@ -54,4 +54,4 @@ contract MyErc20_V2 is ERC20, Ownable{
             }
         }        
     }
-}
+}*/
