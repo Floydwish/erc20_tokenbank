@@ -1,67 +1,83 @@
 # ERC20 Token Bank
 开发流程：
 
-一、需求分析（目的：确定功能、实现方案）
-1.功能：
+## 一、需求分析（目的：确定功能、实现方案）
+
+### 1. 功能需求：
    - 显示当前连接钱包在 TokenBank 中的存款余额
    - 支持输入金额并执行存款操作（通过按钮触发）
    - 支持输入金额并执行取款操作（仅合约所有者可操作）
    - 实时更新用户余额和合约总存款金额
    - 交易状态反馈（如"存款中..."、"取款中..."）
 
-2.实现方案
+### 2. 实现方案：
    - 合约：erc20token、tokenbank
    - 前端及区块链交互：Viem（核心库）、Wagmi（钱包连接与合约调用封装）
 
 
-二、合约开发（目的：编写、测试智能合约）
-1. MyErc20合约开发
+## 二、合约开发（目的：编写、测试智能合约）
+
+### 1. MyErc20合约开发
    - 基于OpenZeppelin ERC20标准
    - 实现铸造功能（仅所有者）
    - 代币名称：MyERC20Token (METK)
    - 初始供应量：10,000,000代币
 
-2. TokenBank合约开发
+### 2. TokenBank合约开发
    - 实现代币存款功能
    - 实现代币提取功能
    - 用户余额管理
    - 事件记录（Deposited、Withdraw）
 
-三、前端开发（目的：用户界面、钱包连接）
-1. 技术栈：React + Vite + Wagmi + Viem
-2. 核心组件：
+## 三、前端开发（目的：用户界面、钱包连接）
+
+### 1. 技术栈：React + Vite + Wagmi + Viem
+
+### 2. 核心组件：
    - WalletInfo：钱包连接和余额显示
    - TransactionForm：存款取款操作表单
-3. 功能实现：
+
+### 3. 功能实现：
    - MetaMask钱包连接
    - 实时余额查询
    - 交易状态反馈
    - 网络切换提醒
 
-四、与区块链交互（目的：使用库读、写区块链）
-1. Wagmi配置：支持Sepolia测试网和本地网络
-2. 合约交互：
+## 四、与区块链交互（目的：使用库读、写区块链）
+
+### 1. Wagmi配置：支持Sepolia测试网和本地网络
+
+### 2. 合约交互：
    - 读取：余额查询、代币符号
    - 写入：授权、存款、取款
-3. 交易确认：使用useWaitForTransactionReceipt
 
-五、测试（目的：整体功能测试）
-1. 合约单元测试：
+### 3. 交易确认：使用useWaitForTransactionReceipt
+
+## 五、测试（目的：整体功能测试）
+
+### 1. 合约单元测试：
    - MyErc20.t.sol：25个测试用例
    - TokenBank.t.sol：24个测试用例
-2. 测试覆盖：
+
+### 2. 测试覆盖：
    - 成功场景测试
    - 失败场景测试
    - 边界值测试
    - 事件验证测试
 
-六、部署与上线（目的：部署上链、维护）
-1. 本地部署：使用Anvil本地网络
-2. 测试网部署：Sepolia测试网
-3. 部署脚本：自动化部署流程
-4. 前端配置：环境变量管理
+## 六、部署与上线（目的：部署上链、维护）
 
-项目结构：
+### 1. 本地部署：使用Anvil本地网络
+
+### 2. 测试网部署：Sepolia测试网
+
+### 3. 部署脚本：自动化部署流程
+
+### 4. 前端配置：环境变量管理
+
+## 项目结构
+
+```
 3.2/
 ├── src/                          # 合约源码
 │   ├── erc20token.sol           # ERC20代币合约
@@ -71,7 +87,8 @@
 │   └── deploy.sh                # 自动化部署脚本
 ├── test/                         # 单元测试
 │   ├── MyErc20.t.sol           # MyErc20合约测试
-│   └── TokenBank.t.sol         # TokenBank合约测试
+│   ├── TokenBank.t.sol         # TokenBank合约测试
+│   └── tokenbank_result.jpg     # 测试结果截图
 ├── frontend/                     # React前端应用
 │   ├── package.json             # 依赖配置
 │   ├── index.html               # HTML入口
@@ -96,36 +113,9 @@
 ├── foundry.toml                  # Foundry配置
 ├── DEPLOY_SEPOLIA.md            # Sepolia部署指南
 └── README.md                    # 项目说明
+```
 
 一个基于 Solidity 的代币银行系统，包含 ERC20 代币合约和代币银行合约。
-
-## 合约介绍
-
-### MyErc20 (`erc20token.sol`)
-ERC20 标准代币合约，基于 OpenZeppelin 实现。
-
-**功能特性：**
-- 代币名称：MyERC20Token (METK)
-- 初始供应量：10,000,000 代币
-- 支持代币铸造（仅合约所有者）
-- 继承 OpenZeppelin 的 ERC20 和 Ownable 功能
-
-**主要函数：**
-- `mint(address to, uint256 amount)` - 铸造新代币
-
-### TokenBank (`tokenbank.sol`)
-代币银行合约，用户可以存入和提取 ERC20 代币。
-
-**功能特性：**
-- 代币存款和提取
-- 内部余额管理
-- 事件记录（存款/提取）
-- 余额查询功能
-
-**主要函数：**
-- `deposit(uint256 amount)` - 存入代币
-- `withdraw(uint256 amount)` - 提取代币
-- `getBalance(address user)` - 查询用户余额
 
 ## 快速开始
 
@@ -236,11 +226,3 @@ npm run build
 - 合约地址需要手动更新到前端配置中
 - 建议在测试网充分测试后再考虑主网部署
 
-
-/*
-扩展 ERC20 合约 ，添加一个有hook 功能的转账函数，如函数名为：transferWithCallback ，在转账时，如果目标地址是合约地址的话，调用目标地址的 tokensReceived() 方法。
-
-继承 TokenBank 编写 TokenBankV2，支持存入扩展的 ERC20 Token，用户可以直接调用 transferWithCallback 将 扩展的 ERC20 Token 存入到 TokenBankV2 中。
-
-（备注：TokenBankV2 需要实现 tokensReceived 来实现存款记录工作）
-*/
